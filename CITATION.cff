@@ -1,0 +1,34 @@
+cff-version: 1.2.0
+message: "If you use this code or data, please cite both the paper and the dataset."
+
+references:
+  - type: article
+    title: "Mobile Crowd Computing as a Sustainable Edge Computing Paradigm for Smart Grids"
+    authors:
+      - family-names: Dutta Pramanik
+        given-names: Pijush Kanti
+        orcid: "https://orcid.org/0000-0001-9438-9309"
+        affiliation: "Galgotias University, India / UTHealth Houston, USA"
+    journal: "[Journal TBD]"
+    year: 2025
+    keywords:
+      - Mobile Crowd Computing
+      - Smart Grid Intelligence
+      - Sustainability
+      - Lifecycle Assessment
+      - Federated Learning
+      - Carbon-Aware Computing
+      - Mobile Crowdsensing
+
+  - type: dataset
+    title: "Solar Home Electricity Data"
+    authors:
+      - name: "Ausgrid"
+    year: 2014
+    url: "https://www.ausgrid.com.au/Industry/Our-Research/Data-to-share/Solar-home-electricity-data"
+    license: "CC BY 4.0"
+    notes: >
+      Please also cite: Ratnam, E.L., Weller, S.R., Kellett, C.M., and Murray, A.T. (2017).
+      Residential load and rooftop PV generation: an Australian distribution network dataset.
+      International Journal of Sustainable Energy, 36(8), 787-806.
+      https://doi.org/10.1080/14786451.2015.1100196
