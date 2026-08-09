@@ -30,6 +30,10 @@ The MCC system estimates feeder-level load by aggregating contributions from a r
 
 Energy figures use per-session smartphone FL energy of 2.97 J from Patterson et al. (2024).
 
+**Sensitivity analysis:** the 140–730 kgCO₂-eq deployment-phase embodied-carbon avoidance claim (paper Table 4) remains valid across 50–200 node deployments (70–1,460 kgCO₂-eq range) and only breaks down below ~2–3 dedicated nodes, far below any realistic deployment scale. See `scripts/sensitivity_analysis.py`.
+
+**Functional precedent:** GridWatch (Klugman et al., 2014) and its deployment-sizing follow-up (Correa & Klugman, 2018) independently confirm that crowd-sourced smartphone sensing achieves measurable grid-monitoring performance without dedicated infrastructure, and that this performance scales predictably with participation rate — consistent with the participation-rate curves reported above.
+
 ---
 
 ## Repository Structure
@@ -47,6 +51,7 @@ Energy figures use per-session smartphone FL energy of 2.97 J from Patterson et 
 │   └── visualization.py                   ← Figure generation
 │
 ├── scripts/
+│   ├── sensitivity_analysis.py             ← Embodied-carbon sensitivity (Table 4 claim)
 │   ├── run_analysis.py                    ← Main script: real Ausgrid data
 │   └── run_synthetic_baseline.py          ← Synthetic validation run
 │
@@ -89,6 +94,14 @@ Runtime: approximately 3–5 minutes on a modern laptop.
 ```bash
 python scripts/run_synthetic_baseline.py
 ```
+
+### 4. Run the embodied-carbon sensitivity analysis
+
+```bash
+python scripts/sensitivity_analysis.py
+```
+
+Tests the robustness of the 140–730 kgCO₂-eq deployment-phase avoidance claim (paper Table 4) against deployment scale (50–200 nodes), device-class uncertainty, and smartphone embodied-carbon estimates. Includes a breakeven analysis showing the two-orders-of-magnitude relationship to the annual operational FL saving only fails below ~2–3 dedicated nodes. Saves `results/tables/sensitivity_analysis.csv` and `results/figures/fig_sensitivity_analysis.{pdf,png}`.
 
 Generates a synthetic dataset calibrated to the Ausgrid GC statistical properties (mean 15.3 kWh/day, std 9.7 kWh/day) and runs the identical simulation pipeline. Results are saved as `results_synthetic.csv` and figures as `fig_mcc_summary_synthetic.*`.
 
@@ -164,6 +177,23 @@ License: CC BY 4.0
 Patterson, D., Gilbert, J.M., Gruteser, M., Robles, E., Sekar, K., Wei, Y.,
 and Zhu, T. (2024). Energy and Emissions of Machine Learning on Smartphones
 vs. the Cloud. Communications of the ACM, 67(2), 87–95.
+```
+
+**Functional-equivalence precedent:**
+```
+Klugman, N., Rosa, J., Pannuto, P., Podolsky, M., Huang, W., and Dutta, P.
+(2014). Grid Watch: Mapping Blackouts with Smart Phones. Proceedings of the
+15th Workshop on Mobile Computing Systems and Applications (HotMobile '14).
+
+Correa, S. and Klugman, N. (2018). How Many Smartphones Does It Take To
+Detect A Power Outage? Proceedings of the Ninth International Conference
+on Future Energy Systems (e-Energy '18).
+```
+
+**Smartphone embodied-carbon range:**
+```
+TechInsights (2026). The Hidden Cost of 'Pro': Is Your Smartphone's Carbon
+Footprint Bigger Than You Think? TechInsights Blog.
 ```
 
 ---
