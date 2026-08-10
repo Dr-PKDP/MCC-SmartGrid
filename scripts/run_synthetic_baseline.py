@@ -48,8 +48,11 @@ STD_DAILY_KWH  = 9.7
 N_HH_SYNTHETIC = 300
 
 SIM_CONFIG    = SimulationConfig(participation_rates=[0.10,0.25,0.50,0.75,1.00],
-                                  n_monte_carlo=200, seed=99)
-ANOMALY_CONFIG = AnomalyConfig(n_anomalies=50, seed=456)
+                                  n_monte_carlo=200, trust_alpha=4.0, trust_beta=2.0,
+                                  anomaly_threshold_sigma=4.0, seed=99)
+ANOMALY_CONFIG = AnomalyConfig(n_anomalies=40, min_duration=2, max_duration=4,
+                                min_affected_frac=0.40, max_affected_frac=0.65,
+                                min_scale=3.0, max_scale=5.0, seed=456)
 ENERGY_CONFIG  = EnergyConfig()
 
 
@@ -101,6 +104,11 @@ def main():
     print(f"  Shape: {loads.shape}")
     print(f"  Mean daily GC/HH: {loads.reshape(N_HH_SYNTHETIC,N_DAYS,N_INTERVALS).sum(axis=2).mean():.2f} kWh")
 
+    # Per-slot statistics from clean baseline data (time-of-day z-score detection,
+    # matching the method used in run_analysis.py for the real dataset)
+    slot_mean = feeder_gt.reshape(-1, N_INTERVALS).mean(axis=0)
+    slot_std  = feeder_gt.reshape(-1, N_INTERVALS).std(axis=0)
+
     print("\n[2/4] Injecting anomalies...")
     loads_a, anomaly_mask = inject_anomalies(loads, ANOMALY_CONFIG)
     feeder_a = loads_a.sum(axis=0)
@@ -108,7 +116,8 @@ def main():
 
     print("\n[3/4] Running simulation...")
     results = run_simulation(loads_a, SIM_CONFIG,
-                             feeder_gt=feeder_a, anomaly_mask=anomaly_mask)
+                             feeder_gt=feeder_a, anomaly_mask=anomaly_mask,
+                             slot_mean=slot_mean, slot_std=slot_std)
 
     feeder_mean = feeder_a.mean()
     edge_wh = edge_daily_energy_wh(ENERGY_CONFIG)
