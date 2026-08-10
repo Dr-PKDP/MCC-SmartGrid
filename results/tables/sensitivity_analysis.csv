@@ -1,0 +1,18 @@
+-- Deployment scale sensitivity --
+n_nodes,avoidance_low_kgco2eq,avoidance_high_kgco2eq
+50,70.0,365.0
+75,105.0,547.5
+100,140.0,730.0
+150,210.0,1095.0
+200,280.0,1460.0
+
+-- Breakeven analysis --
+n_nodes,avoidance_kgco2eq_conservative,ratio_to_annual_fl_saving
+1,0.6,0.37
+2,1.2,0.75
+3,1.8,1.12
+5,3.0,1.88
+10,6.0,3.75
+20,12.0,7.5
+50,30.0,18.75
+100,60.0,37.5
